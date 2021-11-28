@@ -11,28 +11,27 @@ const router = new Router({
       path: '/',
 
       redirect: '/login'
-  },
-  {
+    },
+    {
       path: '/login',
-      component:Login
+      component: Login
 
     },
     {
       path: '/home',
-      component:Home
+      component: Home
     },
     {
       path: '/users',
-      component:Users
+      component: Users
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('to', to)
-  console.log('from', from)
+  // console.log('to', to)
+  // console.log('from', from)
   if (to.path === '/login') {
-
     next()
     return
   }
@@ -41,6 +40,6 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     next('/login')
-    }
- })
+  }
+})
 export default router

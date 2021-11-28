@@ -69,7 +69,7 @@ export default {
               // alert('登录成功')
               this.$message.success('登录成功')
               localStorage.setItem('token', res.data.data.token)
-              this.$router.push('./users')
+              this.$router.push('./home')
             } else {
               this.$message({
                 message: res.data.meta.msg,
