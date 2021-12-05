@@ -7,7 +7,7 @@
       :model="form"
       label-width="80px"
     >
-      <el-form-item label="用户户名" prop="username">
+      <el-form-item label="用户名" prop="username">
         <img src="@/assets/头像图1.jpg" alt="" />
         <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
@@ -16,6 +16,7 @@
           v-model="form.password"
           type="password"
           placeholder="请输入密码"
+          @keyup.enter.native="login"
         ></el-input>
       </el-form-item>
       <el-form-item>
@@ -27,7 +28,7 @@
 </template>
 <script>
 // 导入axios
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   data () {
     return {
@@ -59,24 +60,28 @@ export default {
     login () {
       this.$refs.form.validate(valid => {
         if (valid) {
-          axios({
+          this.axios({
             method: 'post',
             url: 'http://127.0.0.1:8888/api/private/v1/login',
             data: this.form
           }).then(res => {
-            console.log(res.data)
-            if (res.data.meta.status === 200) {
+            // console.log(res)
+            let {
+              meta: { status, msg },
+              data: { token }
+            } = res
+            if (status === 200) {
               // alert('登录成功')
               this.$message.success('登录成功')
-              localStorage.setItem('token', res.data.data.token)
+              localStorage.setItem('token', token)
               this.$router.push('./home')
             } else {
               this.$message({
-                message: res.data.meta.msg,
+                message: msg,
                 type: 'error',
                 duration: 1000
               })
-              // alert(res.data.meta.msg)
+              // alert(res.meta.msg)
             }
           })
         } else {
