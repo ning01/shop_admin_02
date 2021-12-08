@@ -13,7 +13,7 @@
       <el-table-column label="路径" prop="path"></el-table-column>
       <el-table-column label="层级" prop="level">
         <template slot-scope="scope">
-          <span v-if="+scope.row.level === 0">一级</span>
+          <span v-if="+scope.row.level">一级</span>
           <span v-else-if="+scope.row.level === 1">二级</span>
           <span v-else>三级</span>
         </template>
@@ -33,7 +33,7 @@ export default {
     // 获取权限列表数据
     async getRightList () {
       let res = await this.axios.get('rights/list')
-      console.log(res)
+      // console.log(res)
       let {
         meta: { status },
         data
