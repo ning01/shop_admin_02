@@ -54,9 +54,6 @@ export default {
     }
   },
   methods: {
-    reset () {
-      this.$refs.form.resetFields()
-    },
     login () {
       this.$refs.form.validate(valid => {
         if (valid) {
@@ -75,6 +72,7 @@ export default {
               this.$message.success('登录成功')
               localStorage.setItem('token', token)
               this.$router.push('./home')
+              window.location.reload(true)
             } else {
               this.$message({
                 message: msg,
@@ -88,6 +86,9 @@ export default {
           return false
         }
       })
+    },
+    reset () {
+      this.$refs.form.resetFields()
     }
   }
 }
